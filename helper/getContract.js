@@ -1,4 +1,5 @@
 const eth = require('./index');
+const fetch = require('node-fetch');
 
 function getContract(contractJsonURL) {
   return fetch(contractJsonURL)
@@ -7,9 +8,7 @@ function getContract(contractJsonURL) {
       const abi = data.abi;
       const address = data.networks[1].address; // contract address on mainnet
 
-      return new eth.Contract(abi, address, {
-        from: window.coinbase,
-      });
+      return eth.contract(abi).at(address);
     });
 }
 
