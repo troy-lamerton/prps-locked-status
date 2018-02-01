@@ -1,5 +1,8 @@
-var express = require('express');
-var router = express.Router();
+const findLockedPrps = require('../queries/findLockedPrps');
+// later use web sockets to update progress or whatever
+
+const express = require('express');
+const router = express.Router();
 
 /* simpel page with input
 can put in my address and send request*/
@@ -16,7 +19,9 @@ router.post('/find', function(req, res) {
   and logs them to console
   */
 
-  res.status(200).send();
+  findLockedPrps(publicAddress).then(result => {
+    res.send(result.toString());
+  });
 });
 
 module.exports = router;
